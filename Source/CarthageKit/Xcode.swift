@@ -919,15 +919,6 @@ public func buildInDirectory(directoryURL: NSURL, withConfiguration configuratio
 	let locatorSignal = locateProjectsInDirectory(directoryURL)
 
 	let schemeSignals = locatorSignal
-		.filter { (project: ProjectLocator) in
-			switch project {
-			case .ProjectFile:
-				return true
-
-			default:
-				return false
-			}
-		}
 		.take(1)
 		.map { (project: ProjectLocator) -> ColdSignal<String> in
 			return schemesInProject(project)
